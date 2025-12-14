@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -14,13 +15,18 @@ const Navbar: React.FC = () => {
   const navLinks = ['Features', 'Analytics', 'Testimonials', 'Pricing'];
 
   return (
-    <nav 
+    <motion.nav 
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled ? 'py-4' : 'py-6'
       }`}
     >
       <div className="container mx-auto px-6 flex justify-center">
-        <div className={`
+        <motion.div 
+          whileHover={{ scale: 1.01 }}
+          className={`
           flex items-center justify-between w-full max-w-6xl 
           backdrop-blur-xl border border-white/10 rounded-full px-8 
           transition-all duration-500
@@ -59,20 +65,25 @@ const Navbar: React.FC = () => {
             </button>
             
             <button 
-              className="md:hidden p-2 text-white/80 hover:text-white"
+              className="md:hidden p-3 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors focus-ring"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X /> : <Menu />}
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Mobile Menu Overlay */}
-      <div className={`
-        fixed inset-0 z-40 bg-slate-900/90 backdrop-blur-3xl transition-all duration-500 flex items-center justify-center
-        ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
-      `}>
+      <AnimatePresence>
+      {mobileMenuOpen && (
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        className="fixed inset-0 z-40 bg-slate-900/90 backdrop-blur-3xl flex items-center justify-center">
         <div className="flex flex-col items-center gap-8 p-6">
           {navLinks.map((link) => (
             <a 
@@ -88,8 +99,10 @@ const Navbar: React.FC = () => {
             Get Started Now
           </button>
         </div>
-      </div>
-    </nav>
+      </motion.div>
+      )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 

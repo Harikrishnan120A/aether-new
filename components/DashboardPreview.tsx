@@ -1,6 +1,7 @@
 import React from 'react';
 import GlassCard from './GlassCard';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { motion } from 'framer-motion';
 
 const data = [
   { name: 'Mon', uv: 4000, pv: 2400, amt: 2400 },
@@ -30,8 +31,14 @@ const DashboardPreview: React.FC = () => {
   return (
     <section id="analytics" className="py-24 relative z-10">
       <div className="container mx-auto px-6">
-        <GlassCard className="p-8 lg:p-12" intensity="high">
-          <div className="flex flex-col lg:flex-row gap-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+        >
+        <GlassCard className="p-4 sm:p-8 lg:p-12" intensity="high">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             
             {/* Chart Area */}
             <div className="lg:w-2/3">
@@ -123,6 +130,7 @@ const DashboardPreview: React.FC = () => {
 
           </div>
         </GlassCard>
+        </motion.div>
       </div>
     </section>
   );

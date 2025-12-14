@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface GlassCardProps {
   children: React.ReactNode;
@@ -26,13 +27,16 @@ const GlassCard: React.FC<GlassCardProps> = ({
     : "";
 
   return (
-    <div className={`${baseStyles} ${intensityMap[intensity]} ${hoverStyles} rounded-2xl ${className}`}>
+    <motion.div 
+      whileHover={hoverEffect ? { scale: 1.02 } : undefined}
+      transition={{ duration: 0.2 }}
+      className={`${baseStyles} ${intensityMap[intensity]} ${hoverStyles} rounded-2xl ${className}`}>
       {/* Glossy sheen overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
       <div className="relative z-10 h-full">
         {children}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

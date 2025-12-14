@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import GlassCard from './GlassCard';
 import { Check } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const plans = [
   {
@@ -32,8 +33,13 @@ const Pricing: React.FC = () => {
   return (
     <section id="pricing" className="py-24 relative z-10">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-display font-bold text-white mb-6">Simple, Transparent Pricing</h2>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-4 sm:mb-6">Simple, Transparent Pricing</h2>
           
           <div className="flex items-center justify-center gap-4 mt-8">
             <span className={`text-sm font-medium ${!annual ? 'text-white' : 'text-slate-400'}`}>Monthly</span>
@@ -47,12 +53,18 @@ const Pricing: React.FC = () => {
               Yearly <span className="text-cyan-400 text-xs ml-1 font-bold">-20%</span>
             </span>
           </div>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
           {plans.map((plan, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
             <GlassCard 
-              key={index} 
               className={`p-8 relative ${plan.highlight ? 'border-cyan-500/30 lg:-mt-8 lg:mb-8 z-10' : 'border-white/10'}`}
               intensity={plan.highlight ? 'high' : 'medium'}
               hoverEffect={true}
@@ -90,6 +102,7 @@ const Pricing: React.FC = () => {
                 ))}
               </div>
             </GlassCard>
+            </motion.div>
           ))}
         </div>
       </div>

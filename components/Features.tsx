@@ -1,6 +1,7 @@
 import React from 'react';
 import GlassCard from './GlassCard';
 import { Layers, Zap, Shield, Globe, Cpu, Palette } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const features = [
   {
@@ -42,21 +43,54 @@ const features = [
 ];
 
 const Features: React.FC = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
     <section id="features" className="py-24 relative z-10">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl lg:text-5xl font-display font-bold text-white mb-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-white mb-4 sm:mb-6">
             Crafted for <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">Perfection</span>
           </h2>
           <p className="text-slate-400 max-w-2xl mx-auto text-lg">
             Every component is meticulously designed to balance aesthetic appeal with functional clarity.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <GlassCard key={index} hoverEffect={true} className="p-8 group cursor-pointer">
+            <motion.div key={index} variants={itemVariants}>
+            <GlassCard hoverEffect={true} className="p-8 group cursor-pointer">
               <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                 {feature.icon}
               </div>
@@ -67,8 +101,9 @@ const Features: React.FC = () => {
                 {feature.description}
               </p>
             </GlassCard>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
