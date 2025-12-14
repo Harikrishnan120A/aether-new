@@ -59,10 +59,10 @@ const BuildingSpace = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 text-transparent bg-clip-text">
-            Build Your Vision
+            Interactive Design Studio
           </h2>
           <p className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto">
-            Design, code, and preview glassmorphic components in real-time
+            Create, customize, and preview glassmorphic components with live code generation
           </p>
         </motion.div>
 
@@ -222,7 +222,7 @@ const BuildingSpace = () => {
                       >
                         <h3 className="text-2xl font-bold mb-2">{selectedComponent.name}</h3>
                         <p className="text-white/70">
-                          This is a live preview of your glassmorphic component with customizable properties.
+                          Customize glassmorphic properties and see changes instantly in this live preview.
                         </p>
                       </div>
                     </div>
@@ -278,8 +278,7 @@ const BuildingSpace = () => {
                         <h3 className="text-3xl font-bold">{selectedComponent.name}</h3>
                       </div>
                       <p className="text-lg text-white/70 mb-6">
-                        Experience the glassmorphic design in a full-screen preview. Perfect for
-                        presentations and final reviews.
+                        Preview your glassmorphic component with real-time property adjustments and responsive design.
                       </p>
                       <div className="flex gap-4">
                         <button className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl font-medium hover:shadow-lg hover:shadow-purple-500/50 transition-all">
